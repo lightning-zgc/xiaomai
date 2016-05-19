@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title><%=items.title%></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <style>
+        .wrapper {
+            border: solid 1px gray;
+            opacity: 0.4;
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <script src='jquery.js'></script>
+    <script type="text/javascript">
+      function ai() {
+        window.location="/ai";
+      }
+      function stop() {
+        window.location="/stop";
+      }
+    </script>
+</head>
+
+<body>
+
+
+    <!-- Contact -->
+    <article class="container box style3" style="background-color:rgba(255, 255, 255, 0.35)">
+        <header>
+            <h2><%=items.title%></h2>
+            <p>聊天机器人—— 小麦</p>
+            <button type="button" name="button" onclick="ai()">点击我进入~\(≧▽≦)/~啦</button>
+            <button type="button" name="button" onclick="stop()">关闭服务器</button>
+        </header>
+    </article>
+
+
+    <section id="footer">
+        <ul class="icons"><%=items.icon%></ul>
+        <br>
+
+        <div class="copyright">
+            <ul class="menu">
+                <li>&copy; lightning-zgc.com（雷霆云实验室）. All rights reserved.</li>
+                <li>框架采用: <a href="http://html5up.net">HTML5 UP</a></li>
+                <br>
+            </ul>
+        </div>
+    </section>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.poptrox.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

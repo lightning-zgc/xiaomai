@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title><%=items.title%></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <style>
+        .wrapper {
+            border: solid 1px gray;
+            opacity: 0.4;
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <script src='jquery.js'></script>
+    <script>
+        var yf = 0;
+        var yfre;
+
+        function BindEnter(event) {
+
+            if (event.keyCode == 13) {
+
+                event.cancelBubble = true;
+
+                event.returnValue = false;
+
+                a();
+
+            }
+
+        }
+
+        function a() {
+            var d = new Date();
+            var time = d.getTime();
+            nr = document.getElementById('input').value;
+            isa = document.getElementById('isa').checked;
+            if (nr.indexOf("缘分测试") != -1 || nr.indexOf("缘分") != -1 || (yf >= 1 && yf <= 3)) {
+                yfe();
+                return 0;
+            } else if (nr.indexOf("语义分析") != -1 || yf == 4) {
+                yyfx();
+                return 0;
+            }
+            document.getElementById('input').value = "";
+            $("#main").append("<li>" + nr + "</li>");
+            $("#main").append("<li id=" + '"' + time + '"' + "><img src='loader.gif' /></li>");
+            $("#main").animate({
+                scrollTop: $("#main")[0].scrollHeight
+            }, 1000);
+            $.post(
+                "ai", {
+                    nr: escape(nr),
+                    audio: isa
+                },
+                function(data) {
+                    $("#" + time).html(data);
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    //alert($('#'+time).offset().top);
+                }
+            );
+        }
+
+        function yfe() {
+            var d = new Date();
+            time = d.getTime();
+            nr = document.getElementById('input').value;
+            document.getElementById('input').value = "";
+            switch (window.yf) {
+                case 0:
+                    $("#main").append("<li>" + nr + "</li>");
+                    $("#main").append("<li id=" + '"' + time + '"' + ">请告诉我您的姓名呐</li>");
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    window.yf = 2;
+                    break;
+                case 2:
+                    $("#main").append("<li>" + nr + "</li>");
+                    $("#main").append("<li id=" + '"' + time + '"' + ">那么对方的姓名呢？~</li>");
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    yfre = "@['sign-yf']" + nr + "['sign-p']";
+                    window.yf = 3;
+                    break;
+                case 3:
+                    $("#main").append("<li>" + nr + "</li>");
+                    yfre = yfre + nr + "['sign-ed']";
+                    $("#main").append("<li id=" + '"' + time + '"' + "><img src='loader.gif' /></li>");
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    $.post(
+                        "ai", {
+                            nr: escape(yfre)
+                        },
+                        function(data) {
+                            $("#" + time).html(data);
+                            $("#main").animate({
+                                scrollTop: $("#main")[0].scrollHeight
+                            }, 1000);
+                            //alert($('#'+time).offset().top);
+                        }
+                    );
+                    window.yf = 0;
+                    break;
+            }
+        }
+
+        function yyfx() {
+            var d = new Date();
+            time = d.getTime();
+            nr = document.getElementById('input').value;
+            document.getElementById('input').value = "";
+            switch (window.yf) {
+                case 0:
+                    $("#main").append("<li>" + nr + "</li>");
+                    $("#main").append("<li id=" + '"' + time + '"' + ">请输入 您想让我分析的语段吧~\(^o^)/</li>");
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    window.yf = 4;
+                    break;
+                case 4:
+                    $("#main").append("<li>" + nr + "</li>");
+                    yfre = "@[aitext-re]:" + nr + "@[aitext-end];";
+                    $("#main").append("<li id=" + '"' + time + '"' + "><img src='loader.gif' /></li>");
+                    $("#main").animate({
+                        scrollTop: $("#main")[0].scrollHeight
+                    }, 1000);
+                    $.post(
+                        "ai", {
+                            nr: escape(yfre)
+                        },
+                        function(data) {
+                            $("#" + time).html(data);
+                            $("#main").animate({
+                                scrollTop: $("#main")[0].scrollHeight
+                            }, 1000);
+                            //alert($('#'+time).offset().top);
+                        }
+                    );
+                    window.yf = 0;
+                    break;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+
+    <!-- Contact -->
+    <article class="container box style3" style="background-color:rgba(255, 255, 255, 0.35)">
+        <header>
+            <h2><%=items.title%></h2>
+            <p>聊天机器人—— 小麦</p>
+        </header>
+        <div id="convo" data-from="Sonu Joshi">
+            <ul class="chat-thread" id="main">
+                <li>Hi,小麦~</li>
+                <li>您好，我是小麦~\(≧▽≦)/~可以正常的聊天也可以回答百科知识。还可以测试您和TA的缘分哦，快在下面的输入框中试试“缘分测试”或者“缘分”吧！~
+                    <br>最新功能出炉！！ 试试“语义分析”来看看小麦的智商吧~</li>
+            </ul>
+        </div>
+        <hr>
+        <div>
+            <div>
+                <center>
+                    <input class="12u 12u$(mobile)" type="text" id="input" placeholder="在这里与我对话呐~\(≧▽≦)/~" onkeypress="BindEnter(event)" />
+                    <ul class="12u 12u$(mobile)">
+                        <input type="checkbox" id="isa" Checked="true" defaultChecked="true" />语音反馈</ul>
+                    <button onclick="a();">发送</button>
+                </center>
+            </div>
+        </div>
+        <div style="text-align:center;clear:both">
+        </div>
+    </article>
+
+
+    <section id="footer">
+        <ul class="icons"><%=items.icon%></ul>
+        <br>
+        <br>
+        <br>
+
+        <div class="copyright">
+            <ul class="menu">
+                <li>&copy; lightning-zgc.com（雷霆云实验室）. All rights reserved.</li>
+                <li>框架采用: <a href="http://html5up.net">HTML5 UP</a></li>
+                <br>
+            </ul>
+        </div>
+    </section>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.poptrox.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
