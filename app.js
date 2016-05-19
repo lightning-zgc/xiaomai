@@ -16,6 +16,6 @@ app.get('/stop', function (req, res) {
   process.exit();
 });
 
-app.listen(2333, '127.0.0.1', function() {
+app.listen(2333, null, function() {
   console.log("start!");
 });
