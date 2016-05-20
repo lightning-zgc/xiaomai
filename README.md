@@ -22,3 +22,8 @@ npm info underscore （如果上面配置正确这个命令会有字符串respon
 npm install -g n  
 n stable  
 （可能需要重启服务器）  
+---  
+参考资源：  
+http://www.expressjs.com.cn/  
+http://www.jb51.net/article/57864.htm  
+http://www.embeddedjs.com/  
